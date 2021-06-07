@@ -3,4 +3,7 @@ const MINE_RATE = 3000;
 const INITIAL_BALANCE = 500;
 const MINING_REWARD = 50;
 
-module.exports = { DIFFICULTY, MINE_RATE, INITIAL_BALANCE, MINING_REWARD };
+module.exports = { DIFFICULTY, MINE_RATE, INITIAL_BALANCE, MINING_REWARD, development: {
+        port: process.env.PORT || 3001,
+        saltingRounds: 10
+    } };

@@ -3,16 +3,17 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 const connUri = process.env.MONGO_LOCAL_CONN_URL;
+console.log(connUri);
 const User = require('../models/users');
 
 module.exports = {
     add: (req, res) => {
-        mongoose.connect(connUri, { useNewUrlParser : true, useUnifiedTopology: true }, (err) => {
+        mongoose.connect(connUri, { useNewUrlParser : true, useUnifiedTopology: true, useCreateIndex: true }, (err) => {
             let result = {};
             let status = 201;
             if (!err) {
-                const { name, password } = req.body;
-                const user = new User({ name, password}); // document = instance of a model
+                const { username, password } = req.body;
+                const user = new User({ username, password}); // document = instance of a model
                 // TODO: We can hash the password here as well before we insert
                 user.save((err, user) => {
                     if (!err) {
@@ -32,7 +33,6 @@ module.exports = {
                 result.status = status;
                 result.error = err;
                 res.status(status).send(result);
-
                 mongoose.connection.close();
             }
         });
@@ -41,14 +41,13 @@ module.exports = {
     login: (req, res) => {
         const { name, password } = req.body;
 
-        mongoose.connect(connUri, { useNewUrlParser: true, useUnifiedTopology: true }, (err) => {
+        mongoose.connect(connUri, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true }, (err) => {
             let result = {};
             let status = 200;
             if(!err) {
 
                 User.findOne({name}, (err, user) => {
                     if (!err && user) {
-                        // We could compare passwords in our model instead of below as well
                         bcrypt.compare(password, user.password).then(match => {
                             if (match) {
                                 status = 200;
@@ -95,7 +94,7 @@ module.exports = {
     },
 
     getAll: (req, res) => {
-        mongoose.connect(connUri, { useNewUrlParser: true, useUnifiedTopology: true }, (err) => {
+        mongoose.connect(connUri, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true }, (err) => {
             let result = {};
             let status = 200;
             if (!err) {
