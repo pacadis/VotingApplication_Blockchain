@@ -2,7 +2,8 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
 const environment = process.env.NODE_ENV;
-const stage = require('../config')[environment];
+const stage = require('../../config')[environment];
+// console.log(stage.saltingRounds);
 
 const Schema = mongoose.Schema;
 
@@ -32,9 +33,9 @@ userSchema.pre('save', function (next) {
    if (!user.isModified || !user.isNew) { // don't rehash if it's an old user
        next();
    } else {
-       bcrypt.hash(user.password, stage.saltingRounds, function (err, hash) {
+       bcrypt.hash(user.password, 10, function (err, hash) {
           if (err) {
-              console.log('Error hasing password for user', user.username);
+              console.log('Error hashing password for user', user.username);
               next(err);
           } else {
               user.password = hash;
@@ -44,4 +45,4 @@ userSchema.pre('save', function (next) {
    }
 });
 
-module.exports = mongoose.model('User', userSchema);
+module.exports = mongoose.model('Admin', userSchema);

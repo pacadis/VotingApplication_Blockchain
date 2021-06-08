@@ -32,8 +32,6 @@ class Server {
     connectSocket(socket) {
         this.sockets.push(socket);
         console.log('Socket connected');
-
-        // this.messageHandler(socket);
     }
 
     sendDataToBlockchain(socket, data) {
@@ -46,19 +44,6 @@ class Server {
     sendData(data) {
         console.log(`Trebuie trimis spre blockchain ${data}`);
         this.sockets.forEach(socket => this.sendDataToBlockchain(socket, data));
-    }
-
-    addVote(vote) {
-        let { candidateToVote, voter } = vote;
-        console.log(candidateToVote + " " + voter);
-        // console.log(vote);
-        this.sockets.forEach(socket => {
-           socket.send(JSON.stringify({
-               type: MESSAGE_TYPES.add_vote,
-               // data: { head: candidateToVote, body: voter }
-               data: JSON.stringify([ candidateToVote, voter ])
-           }))
-        });
     }
 }
 

@@ -11,7 +11,8 @@ const MESSAGE_TYPES = {
     transaction: 'TRANSACTION',
     clear_vote: 'CLEAR_VOTE',
     create_chains: 'CREATE_CHAINS',
-    add_vote: 'ADD_VOTE'
+    add_vote: 'ADD_VOTE',
+    close_vote: 'CLOSE_VOTE'
 };
 
 class P2pServer {
@@ -68,10 +69,10 @@ class P2pServer {
                     break;
                 case MESSAGE_TYPES.create_chains:
                     this.blockchain = [];
-                    data.data.forEach(d => {
-                        this.blockchain.push(new Blockchain(d));
-                    });
-                    this.blockchain.push(new Blockchain('NUL'));
+                    for (let key in data.data) {
+                        this.blockchain.push(new Blockchain(data.data[key]));
+                    }
+                    this.blockchain.push(new Blockchain('VOT NUL'));
                     console.log(this.blockchain);
                     this.syncNewChains();
                     break;
@@ -122,8 +123,8 @@ class P2pServer {
     getBlockchains(genesis_data) {
         return this.blockchain.forEach(bc => {
             if (bc.getGenesisData() === genesis_data)
-                return bc;
-        })
+                console.log(bc);
+        });
     }
 
     sendVote(socket, vote) {
@@ -139,6 +140,22 @@ class P2pServer {
 
     confirmVote(voter_id, voter_option) {
         this.miner.mine(voter_id, voter_option, this.blockchain);
+    }
+
+    getCandidates() {
+        let candidates = [];
+        this.blockchain.forEach(bc => {
+           candidates.push(bc.getGenesisData());
+        });
+        return candidates;
+    }
+
+    calculateResults() {
+        let results = [];
+
+        // TODO: Calculate results for vote
+
+        return results;
     }
 }
 

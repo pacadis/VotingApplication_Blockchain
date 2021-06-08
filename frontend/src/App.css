@@ -1,0 +1,150 @@
+body, html, #root, .app, .container {
+  width: 100%;
+  height: 100%;
+
+}
+
+body.background-general{
+  /*background-image: url(./img/bgHR.png);*/
+  background-position: center;
+  background-attachment: fixed;
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: flex;
+}
+
+body.background-dashboard{
+  background-image: url(https://wallpapercave.com/wp/wp3264044.jpg);
+  background-position: center;
+  background-attachment: fixed;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.container {
+  font-size: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.labels {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.form-group{
+  padding-top: 9px;
+  padding-bottom: 12px;
+}
+.form-control {
+  box-sizing: border-box;
+  outline: none;
+  border: solid 2px black;
+  border-radius: 10px;
+  color: #292929;
+  width: 100%;
+  padding: 12px ;
+  font-size: 14px;
+  background: rgba(255, 255, 255, 1);
+}
+
+.mybtn {
+  text-transform: uppercase;
+  outline: 0;
+  background: #111212 !important;
+  padding: 10px 28px ;
+  color: rgb(255, 210, 10) !important;
+  font-size: 14px;
+  border: solid 2px #11151a !important;
+  border-radius: 9px;
+  font-weight: bold;
+  cursor: pointer;
+  transition-duration: 0.4s;
+}
+
+.mybtn:hover {
+  background-color: rgb(255, 210, 10) !important;
+  color: black !important;
+  font-weight: bold;
+}
+
+.mybtnnavbar{
+  font-size: 20px;
+  transition: font-size 0.5s;
+}
+
+.smaller .mybtnnavbar{
+  font-size: 16px;
+}
+
+.mybtnnavbar:hover {
+  color: rgb(255, 210, 10) !important;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.alert{
+  color: red;
+  font-size: 13px;
+  background: lavenderblush;
+}
+
+.custom-container{
+  min-width: 300px;
+}
+
+.borderedform {
+  background: rgba(235, 232, 232, 0.9) !important;
+  padding: 40px;
+}
+
+#navigation {
+  transition: 0.5s;
+  position: fixed;
+  width: 100%;
+}
+
+#logo img {
+  max-height: 100px;
+  transition: all 0.4s;
+}
+
+#logo img:hover{
+  filter: blur(1px);
+}
+
+.smaller {
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.smaller #logo img{
+  max-height: 50px;
+  width: auto;
+}
+
+.button-logout{
+  position: absolute;
+  width: 100%;
+  bottom: 20px;
+}
+
+
+td, th {
+  padding: 8px;
+  text-align: center;
+}
+
+
+tr:nth-child(even){background-color: #f2f2f2;}
+tr:hover {background-color: #ddd;}
+
+.container_request{
+
+  margin: 0 auto;
+  width:80% /* value of your choice which suits your alignment */
+
+}
