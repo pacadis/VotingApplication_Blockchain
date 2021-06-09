@@ -106,9 +106,9 @@ class AdminDashboard extends React.Component {
     }
 
     render() {
-        let status = this.vote_status;
-        console.log(status + "render");
-        if (status === false) {
+        // let { status } = this.state;
+        // console.log(status + "render");
+        // if (status === false) {
             return (
                 <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center',}}>
                     <div className="border d-flex align-items-center justify-content-center"
@@ -133,16 +133,16 @@ class AdminDashboard extends React.Component {
                     </div>
                 </div>
             );
-        } else {
-            return (
-                <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-                    <Button className="align-self-center mybtn" onClick={() => this.handleResults()}
-                            style={{margin: "10px"}}>
-                        Calculeaza rezultate
-                    </Button>
-                </div>
-            );
-        }
+        // } else {
+        //     return (
+        //         <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+        //             <Button className="align-self-center mybtn" onClick={() => this.handleResults()}
+        //                     style={{margin: "10px"}}>
+        //                 Calculeaza rezultate
+        //             </Button>
+        //         </div>
+        //     );
+        // }
     }
 }
 

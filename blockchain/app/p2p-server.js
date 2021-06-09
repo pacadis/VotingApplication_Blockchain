@@ -152,7 +152,11 @@ class P2pServer {
 
     calculateResults() {
         let results = [];
-
+        this.blockchain.forEach(bc => {
+           let candidate = bc.getGenesisData();
+           results.push({ candidate: candidate, votes: bc.chain.length - 1 });
+        });
+        console.log(results);
         // TODO: Calculate results for vote
 
         return results;

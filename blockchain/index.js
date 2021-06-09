@@ -106,9 +106,9 @@ app.get('/api/get_results', (req, res) => {
     }
 });
 
-app.post('api/close_vote', (req, res) => {
+app.post('/api/close_vote', (req, res) => {
    vote_open = false;
-   res.status(200);
+   res.status(200).json();
 });
 
 app.use('/api', routes(router));
