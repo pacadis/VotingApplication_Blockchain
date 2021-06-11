@@ -6,10 +6,10 @@ import {faEdit} from "@fortawesome/free-solid-svg-icons";
 var Candidate = (props) => {
     return <div className="card mt-3 col-md-6 col-lg-3 mr-5 mb-2" style={{ display: "block", justifyContent: "center", alignItems: "center", cursor: "pointer", width: "50px" }}>
         <div className="card-body">
-            <h4 className="card-title">{props.candidate}</h4>
+            <h4 className="card-title">{ props.candidate }</h4>
         </div>
         <div className="card-footer">
-            <small className="text-muted">{props.votes}</small>
+            <small className="text-muted">{ props.votes }</small>
         </div>
     </div>
 }
@@ -26,8 +26,8 @@ class Results extends React.Component {
             }
         }).then(res => {
             res.json().then(json => {
-                var candidates = json.map((candidate) => {
-                    return <Candidate key={candidate.candidate} {...candidate}/>
+                let candidates = json.map((candidate) => {
+                    return <Candidate key={ candidate.candidate } { ...candidate }/>
                 });
                 this.setState({ candidates });
             });
