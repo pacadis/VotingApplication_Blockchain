@@ -9,16 +9,13 @@ const Wallet = require('./wallet');
 const TransactionPool = require('./wallet/transaction-pool');
 
 const validateToken = require('./login/utils').validateToken;
-const validateUser = require('./utils_blockchain').validateVoterId;
+const validateUser = require('./login_utils').validateVoterId;
 
 const router = express.Router();
-
-// const HTTP_PORT = process.env.HTTP_PORT || 3001;
 
 const environment = process.env.NODE_ENV;
 const stage = require('./login/config');
 const routes = require('./login/routes');
-
 
 const app = express();
 let bc = [];
@@ -27,6 +24,8 @@ const tp = new TransactionPool();
 const p2pServer = new P2pServer(tp);
 let voters_submitted = [];
 let vote_open = true;
+let results;
+let calculated = false;
 
 app.use(bodyParser.urlencoded({
     extended: true
@@ -61,9 +60,6 @@ app.post('/api/add_vote', (req, res) => {
                     }, () => {
                         res.status(404).json('invalid user');
                     });
-                // } else {
-                //     res.status(400).json('invalid code');
-                // }
             } else {
                 console.log("already voted");
                 res.status(403).json('Persoana deja a votat');
@@ -98,9 +94,13 @@ app.get('/api/get_candidates', (req, res) => {
 
 app.get('/api/get_results', (req, res) => {
     if (!vote_open) {
-        const results = p2pServer.calculateResults();
-
-        res.status(200).send(results);
+        if (!calculated) {
+            results = p2pServer.getResults();
+            calculated = true;
+        }
+        console.log("//////////////////////////////////////////////")
+        console.log(results);
+        res.status(200).json(results);
     } else {
         res.status(400).json('vote not closed yet');
     }
@@ -108,6 +108,7 @@ app.get('/api/get_results', (req, res) => {
 
 app.post('/api/close_vote', (req, res) => {
    vote_open = false;
+   p2pServer.calculateResults();
    res.status(200).json();
 });
 

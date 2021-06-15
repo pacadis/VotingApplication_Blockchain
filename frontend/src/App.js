@@ -9,6 +9,7 @@ import StartDashboard from "./components/general/StartDashboard";
 import VoteDone from "./components/general/VoteDone";
 import Register from "./components/login/Register";
 import Results from "./components/general/Results";
+import EndVote from "./components/general/EndVote";
 
 
 class App extends Component {
@@ -26,6 +27,7 @@ class App extends Component {
                           <Route path="/start_dashboard" component={StartDashboard}/>
                           <Route path="/vote_done" component={VoteDone}/>
                           <Route path="/results" component={Results}/>
+                          <Route path="/end_vote" component={EndVote}/>
 
                           <Route path="/" exact component={StartDashboard}/>
                           <Redirect to="/start_dashboard"/>

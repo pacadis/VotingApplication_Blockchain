@@ -14,4 +14,7 @@ module.exports = (router) => {
 
     router.route('/login')
         .post(controller.login);
+
+    router.route('/deleteuser')
+        .delete(controller.deleteuser);
 };

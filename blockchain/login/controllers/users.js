@@ -5,72 +5,8 @@ const jwt = require('jsonwebtoken');
 const connUri = process.env.MONGO_LOCAL_CONN_URL;
 console.log(connUri);
 const User = require('../models/users');
-const Person = require('../models/person');
-const generateId = require('../utils').generateId;
 
 module.exports = {
-    // add: (req, res) => {
-    //     mongoose.connect(connUri, { useNewUrlParser : true, useUnifiedTopology: true, useCreateIndex: true }, (err) => {
-    //         let result = {};
-    //         let status = 201;
-    //         if (!err) {
-    //             const id = generateId(8);
-    //             const {username, password } = req.body;
-    //             const user = new User({ id, username, password}); // document = instance of a model
-    //
-    //             // TODO: We can hash the password here as well before we insert
-    //             user.save((err, user) => {
-    //                 if (!err) {
-    //                     result.status = status;
-    //                     result.result = user;
-    //                 } else {
-    //                     status = 500;
-    //                     result.status = status;
-    //                     result.error = err;
-    //                 }
-    //                 res.status(status).send(result);
-    //                 mongoose.connection.close();
-    //             });
-    //         } else {
-    //             status = 500;
-    //             result.status = status;
-    //             result.error = err;
-    //             res.status(status).send(result);
-    //             mongoose.connection.close();
-    //         }
-    //     });
-    // },
-    //
-    // add_person: (req, res) => {
-    //     mongoose.connect(connUri, { useNewUrlParser : true, useUnifiedTopology : true, useCreateIndex : true}, (err) => {
-    //        let result = {};
-    //        let status = 201;
-    //
-    //        if (!err) {
-    //            const { id, name, cnp, address, email, phone } = req.body;
-    //            const person = new Person({ id, name, cnp, address, email, phone });
-    //            person.save((err, person) => {
-    //                if (!err) {
-    //                    result.status = status;
-    //                    result.result = person;
-    //                } else {
-    //                    status = 500;
-    //                    result.status = status;
-    //                    result.error = err;
-    //                }
-    //                res.status(status).send(result);
-    //                mongoose.connection.close();
-    //            });
-    //        } else {
-    //            status = 500;
-    //            result.status = status;
-    //            result.error = err;
-    //            res.status(status).send(result);
-    //            mongoose.connection.close();
-    //        }
-    //     });
-    // },
-
     login: (req, res) => {
         const { username, password } = req.body;
         res.header("Access-Control-Allow-Origin", "*");

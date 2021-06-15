@@ -7,6 +7,8 @@ class StartDashboard extends React.Component {
     // }
 
     render() {
+        document.body.classList = "";
+        document.body.classList.add("background-general");
         return (
             <div style={{display: 'flex',  justifyContent:'center', alignItems:'center', height: '100vh'}}>
                 <Button className="align-self-center mybtn" onClick={() => this.props.history.push('/login')} style={{ width: "25vh", margin: "2vh"}}>

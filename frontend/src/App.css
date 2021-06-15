@@ -5,16 +5,24 @@ body, html, #root, .app, .container {
 }
 
 body.background-general{
-  /*background-image: url(./img/bgHR.png);*/
+  background-image: url('./img/bcg.png');
   background-position: center;
   background-attachment: fixed;
-  background-size: cover;
+  background-size: auto;
   background-repeat: no-repeat;
   display: flex;
 }
 
 body.background-dashboard{
-  background-image: url(https://wallpapercave.com/wp/wp3264044.jpg);
+  background-image: url('./img/background.jpg');
+  background-position: center;
+  background-attachment: fixed;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.divbackground{
+  background-image: url(./img/background.jpg);
   background-position: center;
   background-attachment: fixed;
   background-size: cover;
@@ -98,6 +106,12 @@ body.background-dashboard{
 .borderedform {
   background: rgba(235, 232, 232, 0.9) !important;
   padding: 40px;
+  opacity: 100%;
+}
+
+.borderedformb {
+  background: rgba(235, 232, 232, 0.9) !important;
+  padding: 10px;
 }
 
 #navigation {

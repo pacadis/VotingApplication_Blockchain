@@ -16,12 +16,14 @@ const personSchema = new Schema({
         type: "String",
         required: true,
         trim: true,
+        match: [/^([a-zA-Z]{2,}\s[a-zA-Z]+'?-?[a-zA-Z]{2,}\s?([a-zA-Z]+)?)+$/, 'Nume incorect']
     },
     cnp: {
         type: "String",
         required: true,
         trim: true,
-        unique: true
+        unique: true,
+        match: [/^([0-9]{13})+$/, 'CNP trebuie sa contina 13 cifre']
     },
     address: {
         type: "String",
@@ -32,13 +34,14 @@ const personSchema = new Schema({
         type: "String",
         required: true,
         trim: true,
-        match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address']
+        match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Adresa de email nevalida']
     },
     phone: {
         type: "String",
         required: true,
         trim: true,
-        unique: true
+        unique: true,
+        match: [/^(7[0-9]{8})+$/, 'Numar de telefon incorect']
     }
 });
 

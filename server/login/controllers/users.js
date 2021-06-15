@@ -165,5 +165,22 @@ module.exports = {
                 mongoose.connection.close();
             }
         });
+    },
+
+    deleteuser: (req, res) => {
+        const { username } = req.body;
+        console.log(username);
+        res.header("Access-Control-Allow-Origin", "*");
+        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+        mongoose.connect(connUri, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true }, (err) => {
+            let status = 200;
+            User.deleteOne({username}, (err) => {
+                if (!err) {
+                    res.status(status).send('deleted');
+                } else {
+                    res.status(404).send('user not found');
+                }
+            });
+        });
     }
 };

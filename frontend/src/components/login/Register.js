@@ -50,6 +50,7 @@ class Register extends React.Component {
             var encodedValue = encodeURIComponent(payload[property]);
             formBody.push(encodedKey + "=" + encodedValue);
         }
+
         formBody = formBody.join("&");
 
         fetch('http://localhost:2999/api/register', {
@@ -64,7 +65,37 @@ class Register extends React.Component {
                 localStorage.clear();
                 this.props.history.replace("/login");
             } else {
-                alert('error');
+                const payload = {
+                    username: localStorage.getItem('username')
+                }
+
+                var formBody = [];
+                for (var property in payload) {
+                    var encodedKey = encodeURIComponent(property);
+                    var encodedValue = encodeURIComponent(payload[property]);
+                    formBody.push(encodedKey + "=" + encodedValue);
+                }
+                formBody = formBody.join("&");
+
+                fetch('http://localhost:2999/api/deleteuser', {
+                   method: 'DELETE',
+                    headers: {
+                        'Content-type': 'application/x-www-form-urlencoded;charset=UTF-8'
+                    },
+                    body: formBody
+                }).then(res =>{
+                    if (res.status === 404) {
+                        alert('user not found');
+                    }
+                });
+                res.json().then(json => {
+                    let errors = "";
+                    Object.entries(json.error.errors).forEach(err => {
+                        console.log(err[1].message);
+                        errors += (err[1].message) + '\n';
+                    });
+                    alert(errors);
+                });
             }
         });
     }
@@ -95,11 +126,13 @@ class Register extends React.Component {
                 // const id = res.json().then(json => {
                 //     return json.result.id.value();
                 // });
-                res.json().then(json => { localStorage.setItem("id", json.result.id )});
+                res.json().then(json => { localStorage.setItem("id", json.result.id); localStorage.setItem("username", json.result.username)});
                 // localStorage.setItem("id", id.toString());
                 this.addPerson();
             } else if (res.status === 404) {
                 alert('error');
+            } else {
+                alert('error 500');
             }
         });
     }
@@ -115,8 +148,8 @@ class Register extends React.Component {
         document.body.classList.add("background-general");
         return (
             <div>
-                <div className="d-flex justify-content-center align-items-center" style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}>
-                    <Form className="d-flex flex-column border rounded border-secondary custom-container" style={{ width: "40%" }}>
+                <div className="d-flex justify-content-center align-items-center" style={{display: 'flex',  justifyContent:'center', alignItems:'center', height: '80%'}}>
+                    <Form className="borderedform d-flex flex-column border rounded border-secondary custom-container" style={{ width: '30%', height: '70%'}}>
                         <h2 className="align-self-center">Înregistrare</h2>
                         <hr/>
                         <Form.Group controlId="formName">

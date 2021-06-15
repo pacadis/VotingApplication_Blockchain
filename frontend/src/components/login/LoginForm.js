@@ -69,10 +69,14 @@ class LoginForm extends React.Component {
         document.body.classList = "";
         document.body.classList.add("background-general");
         return (
-          <div>
-              <div className="d-flex justify-content-center align-items-center" style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}>
-                  <Form className="d-flex flex-column border rounded border-secondary custom-container" style={{ width: "40%" }}>
-                      <h2 className="align-self-center">Login</h2>
+              <div className="border d-flex align-items-center justify-content-center"
+                   style={{display: 'flex', justifyContent: 'center', alignItems: 'center', position: 'absolute', left: '50%', top: '50%',
+                  transform: 'translate(-50%, -50%)'}}>
+                  <Form className="d-flex borderedform flex-column border rounded border-secondary custom-container"
+                        style={{display:"grid", alignItems:"center", justifyContent:"center", borderStyle: 'solid', borderRadius:'15px', width: 'min-content', padding: '10px'}}>
+                      <div className="border" style={{textDecoration: 'underline'}}>
+                          <h2 className="align-self-center" >Autentificare</h2>
+                      </div>
                       <hr/>
                       <Form.Group controlId="formUser">
                           <Form.Label className="labels">Nume utilizator</Form.Label>
@@ -88,8 +92,7 @@ class LoginForm extends React.Component {
                           Login
                       </Button>
                   </Form>
-              </div>
-          </div>
+            </div>
         );
     }
 }

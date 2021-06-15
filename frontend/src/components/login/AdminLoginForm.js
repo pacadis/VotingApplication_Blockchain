@@ -69,26 +69,29 @@ class AdminLoginForm extends React.Component {
         document.body.classList = "";
         document.body.classList.add("background-general");
         return (
-            <div>
-                <div className="d-flex justify-content-center align-items-center" style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}>
-                    <Form className="d-flex flex-column border rounded border-secondary custom-container" style={{ width: "40%" }}>
-                        <h2 className="align-self-center">Login</h2>
-                        <hr/>
-                        <Form.Group controlId="formUser">
-                            <Form.Label className="labels">Nume utilizator</Form.Label>
-                            <Form.Control className="align-self-center" name="username" type="text" placeholder="Nume utilizator" onChange={this.handleChange}>
-                            </Form.Control>
-                        </Form.Group>
+            <div className="border d-flex align-items-center justify-content-center"
+                 style={{display: 'flex', justifyContent: 'center', alignItems: 'center', position: 'absolute', left: '50%', top: '50%',
+                     transform: 'translate(-50%, -50%)'}}>
+                <Form className="d-flex borderedform flex-column border rounded border-secondary custom-container"
+                      style={{display:"grid", alignItems:"center", justifyContent:"center", borderStyle: 'solid', borderRadius:'15px', width: 'min-content', padding: '10px'}}>
+                    <div className="border" style={{borderBottomStyle: 'solid'}}>
+                        <h2 className="align-self-center" >Autentificare</h2>
+                    </div>
+                    <hr/>
+                    <Form.Group controlId="formUser">
+                        <Form.Label className="labels">Nume utilizator</Form.Label>
+                        <Form.Control className="align-self-center" name="username" type="text" placeholder="Nume utilizator" onChange={this.handleChange}>
+                        </Form.Control>
+                    </Form.Group>
 
-                        <Form.Group controlId="formPassword">
-                            <Form.Label className="labels">Parola</Form.Label>
-                            <Form.Control className="align-self-center" name="password" type="password" placeholder="Parola" onChange={this.handleChange}/>
-                        </Form.Group>
-                        <Button className="align-self-center mybtn" onClick={this.doSubmit}>
-                            Login
-                        </Button>
-                    </Form>
-                </div>
+                    <Form.Group controlId="formPassword">
+                        <Form.Label className="labels">Parola</Form.Label>
+                        <Form.Control className="align-self-center" name="password" type="password" placeholder="Parola" onChange={this.handleChange}/>
+                    </Form.Group>
+                    <Button className="align-self-center mybtn" onClick={this.doSubmit}>
+                        Login
+                    </Button>
+                </Form>
             </div>
         );
     }

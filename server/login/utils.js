@@ -13,7 +13,6 @@ module.exports = {
             try {
                 // verify makes sure that the token hasn't expired and has been issued by us
                 result = jwt.verify(token, process.env.JWT_SECRET, options);
-
                 // Let's pass back the decoded token to the request object
                 req.decoded = result;
                 // We call next to pass execution to the subsequent middleware

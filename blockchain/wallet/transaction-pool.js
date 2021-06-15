@@ -3,7 +3,7 @@ class TransactionPool {
         this.transactions = [];
     }
 
-    updateOrAddTransaction(vote) {
+    addTransaction(vote) {
         this.transactions.push(vote);
     }
 
@@ -16,7 +16,6 @@ class TransactionPool {
     }
 
     clear(voter_id) {
-        // this.transactions.shift();
         let i = 0;
         while (i < this.transactions.length) {
             if (this.transactions[i].outputs.data === voter_id) {

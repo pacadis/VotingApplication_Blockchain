@@ -1,7 +1,7 @@
 const ChainUtil = require('../chain-util');
 const Transaction = require('./transaction');
 
-class Wallet {
+class Signer {
     constructor() {
         this.keyPair = ChainUtil.genKeyPair();
         this.publicKey = this.keyPair.getPublic().encode('hex');
@@ -22,11 +22,11 @@ class Wallet {
 
         if (!transaction){
             transaction = Transaction.newTransaction(this, voter_id);
-            transactionPool.updateOrAddTransaction(transaction);
+            transactionPool.addTransaction(transaction);
         }
 
         return transaction;
     }
 }
 
-module.exports = Wallet;
+module.exports = Signer;

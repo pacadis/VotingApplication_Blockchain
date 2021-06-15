@@ -46,7 +46,7 @@ app.post('/api/data', (req, res) => {
 app.get('/api/status', (req, res) => {
     console.log(vote_created);
    if (vote_created === false) {
-       res.status(404).json('not created');
+       res.status(203).json('not created');
    } else {
        res.status(200).json('created');
    }

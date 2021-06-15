@@ -3,7 +3,6 @@ const bcrypt = require('bcrypt');
 
 const environment = process.env.NODE_ENV;
 const stage = require('../../config')[environment];
-// console.log(stage.saltingRounds);
 
 const Schema = mongoose.Schema;
 

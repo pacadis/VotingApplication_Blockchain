@@ -1,8 +1,9 @@
 const Websocket = require('ws');
-const Blockchain = require('../blockchain');
+const Blockchain = require('../blockchain/blockchain');
 const Miner = require('./miner');
 const Block = require("../blockchain/block");
 
+const HTTP_PORT = process.env.HTTP_PORT || 3001;
 const P2P_PORT = process.env.P2P_PORT || 5001;
 const peers = process.env.PEERS ? process.env.PEERS.split(',') : [];
 const MESSAGE_TYPES = {
@@ -12,7 +13,9 @@ const MESSAGE_TYPES = {
     clear_vote: 'CLEAR_VOTE',
     create_chains: 'CREATE_CHAINS',
     add_vote: 'ADD_VOTE',
-    close_vote: 'CLOSE_VOTE'
+    close_vote: 'CLOSE_VOTE',
+    calculate_results: 'CALCULATE_RESULTS',
+    final_results: 'FINAL_RESULTS'
 };
 
 class P2pServer {
@@ -21,6 +24,8 @@ class P2pServer {
         this.transactionPool = tp;
         this.sockets = [];
         this.miner = new Miner(this.transactionPool, this);
+        this.voteResults = [];
+        this.validResults = false;
     }
 
     listen() {
@@ -62,7 +67,7 @@ class P2pServer {
                     this.blockchain.push(chain);
                     break;
                 case MESSAGE_TYPES.transaction:
-                    this.transactionPool.updateOrAddTransaction(data.vote);
+                    this.transactionPool.addTransaction(data.vote);
                     break;
                 case MESSAGE_TYPES.clear_vote:
                     this.transactionPool.clear(data.data);
@@ -83,6 +88,27 @@ class P2pServer {
                         }
                     });
                     break;
+                case MESSAGE_TYPES.calculate_results:
+                    let results = [];
+                    this.blockchain.forEach(bc => {
+                        let candidate = bc.getGenesisData();
+                        results.push({ candidate: candidate, votes: bc.chain.length - 1 });
+                    });
+                    this.sockets.forEach(socket => {
+                        socket.send(JSON.stringify({
+                            type: MESSAGE_TYPES.final_results,
+                            data: results
+                        }));
+                    });
+                    break;
+                case MESSAGE_TYPES.final_results:
+                    console.log("-------------- vote results");
+                    console.log(this.voteResults);
+                    console.log(data.data);
+                    if (JSON.stringify(this.voteResults) === JSON.stringify(data.data)) {
+                        this.validResults = true;
+                        console.log(this.validResults);
+                    }
             }
         });
     }
@@ -151,15 +177,28 @@ class P2pServer {
     }
 
     calculateResults() {
+
         let results = [];
         this.blockchain.forEach(bc => {
            let candidate = bc.getGenesisData();
            results.push({ candidate: candidate, votes: bc.chain.length - 1 });
         });
-        console.log(results);
+        this.voteResults = results;
         // TODO: Calculate results for vote
 
-        return results;
+        this.sockets.forEach(socket => {
+            socket.send(JSON.stringify({
+                type: MESSAGE_TYPES.calculate_results
+            }));
+        });
+    }
+
+    getResults() {
+        console.log(this.validResults);
+        if (this.validResults) {
+            console.log("here");
+            return this.voteResults;
+        }
     }
 }
 
